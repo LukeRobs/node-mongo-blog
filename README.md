@@ -34,45 +34,48 @@ Este é um projeto completo de aplicação web desenvolvido em **Node.js**, util
 
 ## ⚙️ Instalação
 
-Clone o repositório:
-https://github.com/LukeRobs/node-mongo-blog.git
+git clone https://github.com/LukeRobs/node-mongo-blog.git
+cd node-mongo-blog
+npm install
 
-Configure seu banco de dados MongoDB (local ou Atlas) no app.js:
+
+# Configure seu banco de dados MongoDB (local ou Atlas) no app.js:
 mongoose.connect()
 
-Inicie o servidor:
+# Inicie o servidor:
 NPM start
 
-Acesse no navegador:
+# Acesse no navegador:
 http://localhost:PORTA
 
 
-📂 Estrutura de Pastas
+## 📂 Estrutura de Pastas
 .
-├── config          # Configurações (passport, autenticação)
-├── helpers         # Helpers para Handlebars
-├── models          # Modelos do Mongoose
-├── routes          # Rotas da aplicação
-├── views           # Templates Handlebars
-├── public          # Arquivos estáticos (CSS, JS)
-├── app.js          # Arquivo principal da aplicação
+# ├── config          # Configurações (passport, autenticação)
+# ├── helpers         # Helpers para Handlebars
+# ├── models          # Modelos do Mongoose
+# ├── routes          # Rotas da aplicação
+# ├── views           # Templates Handlebars
+# ├── public          # Arquivos estáticos (CSS, JS)
+# ├── app.js          # Arquivo principal da aplicação
 
 
-🔒 Segurança
-Senhas criptografadas
+## 🔒 Segurança
 
-Validação de campos
+# 🔐 Senhas criptografadas
+# ⚠️ Validação de campos
+# 🚫 Proteção de rotas administrativas
 
-Proteção de rotas administrativas
+## ✨ Demonstração
+   🏠 Página Inicial
+    ![HomePage](./public/img/home.png)
+   📝 Listagem de Postagens
+    ![postagens](./public/img/postagens.png)
 
-✨ Demonstração
-   ![HomePage](./public/img/home.png)
-   ![postagens](./public/img/postagens.png)
-
-📄 Licença
+# 📄 Licença
 Este projeto está licenciado sob a MIT License.
 
-✉️ Contato
+# ✉️ Contato
 Se quiser trocar uma ideia ou tirar dúvidas:
 
 LinkedIn: lucas-robson-dev/
