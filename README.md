@@ -1,6 +1,6 @@
 # 📚 Projeto Node.js MongoDB
 
-Este é um projeto completo de aplicação web desenvolvido em **Node.js**, utilizando **Express**, **MongoDB** e **Mongoose**. O objetivo é demonstrar a criação de um sistema de postagens com autenticação de usuários e área administrativa.
+Este é um projeto de aplicação web desenvolvido em **Node.js**, utilizando **Express**, **MongoDB** e **Mongoose**. O objetivo é demonstrar a criação de um sistema de postagens com autenticação de usuários e área administrativa.
 
 ---
 
