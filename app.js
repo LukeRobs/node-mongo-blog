@@ -1,4 +1,5 @@
 import Express from 'express';
+import dotenv from "dotenv";
 import exphbs from 'express-handlebars';
 import admin from './routes/admin.js';
 import mongoose from 'mongoose';
@@ -12,6 +13,7 @@ import usuarios from './routes/usuario.js'
 import passport from 'passport'
 import configPassport from './config/auth.js'
 configPassport(passport);
+dotenv.config();
 
 const app = Express();
 const __filename = fileURLToPath(import.meta.url);
@@ -19,7 +21,7 @@ const __dirname = path.dirname(__filename);
 
 
 app.use(session({
-    secret: "qM8b#9z!wK7*D1rL3sT6xP2vN4j@Z0eU",
+    secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true
 }));
@@ -49,7 +51,7 @@ app.use(Express.urlencoded({extended: false}))
 app.use(Express.json())
 app.use(Express.static(path.join(__dirname, "public")));
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/blogapp').then(() => {
+mongoose.connect(process.env.MONGO_URI).then(() => {
     console.log("MongoBD conectado")
 }).catch((err) => {
     console.log("erro ao conectar com o MongoBD" + err)
