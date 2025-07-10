@@ -1,0 +1,19 @@
+# Node dependencies
+node_modules/
+
+# Logs
+logs
+*.log
+
+# Environment variables
+.env
+
+# VSCode settings (opcional)
+.vscode/
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+
+# Mongo dumps
+dump/
