@@ -67,15 +67,15 @@ http://localhost:PORTA
  🚫 Proteção de rotas administrativas
 
 ## ✨ Demonstração
-
    🏠 Página Inicial
     ![HomePage](./public/img/home.png)
-
+    
    📝 Lista de Postagens
     ![postagens](./public/img/postagens.png)
 
-     Painel ADM Dashboard 
-    ![Dashboard](./public/img/dashboard.png)
+   🛠️ Painel Admin
+   ![Dashboard](./public/img/dashboard.png)
+
     
 # 📄 Licença
 Este projeto está licenciado sob a MIT License.
