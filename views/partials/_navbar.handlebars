@@ -24,6 +24,13 @@
             <a class="nav-link" href="/usuarios/cadastro">Cadastre-se</a>
           </li>
         {{/if}}
+        {{#if user.eAdmin}}
+          <li class="nav-item">
+            <a class="nav-link" href="/admin">Painel Admin</a>
+          </li>
+        {{else}}
+
+        {{/if}}
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>

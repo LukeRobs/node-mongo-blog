@@ -1,6 +1,6 @@
 # 📚 Projeto Node.js MongoDB
 
-Este é um projeto completo de aplicação web desenvolvido em **Node.js**, utilizando **Express**, **MongoDB** e **Mongoose**. O objetivo é demonstrar a criação de um sistema de postagens com autenticação de usuários e área administrativa.
+Este é um projeto de aplicação web desenvolvido em **Node.js**, utilizando **Express**, **MongoDB** e **Mongoose**. O objetivo é demonstrar a criação de um sistema de postagens com autenticação de usuários e área administrativa.
 
 ---
 
@@ -51,27 +51,32 @@ http://localhost:PORTA
 
 ## 📂 Estrutura de Pastas
 .
-# ├── config          # Configurações (passport, autenticação)
-# ├── helpers         # Helpers para Handlebars
-# ├── models          # Modelos do Mongoose
-# ├── routes          # Rotas da aplicação
-# ├── views           # Templates Handlebars
-# ├── public          # Arquivos estáticos (CSS, JS)
-# ├── app.js          # Arquivo principal da aplicação
+├── config          # Configurações (passport, autenticação)
+├── helpers         # Helpers para Handlebars
+├── models          # Modelos do Mongoose
+├── routes          # Rotas da aplicação
+├── views           # Templates Handlebars
+├── public          # Arquivos estáticos (CSS, JS)
+├── app.js          # Arquivo principal da aplicação
 
 
 ## 🔒 Segurança
 
-# 🔐 Senhas criptografadas
-# ⚠️ Validação de campos
-# 🚫 Proteção de rotas administrativas
+ 🔐 Senhas criptografadas
+ ⚠️ Validação de campos
+ 🚫 Proteção de rotas administrativas
 
 ## ✨ Demonstração
+
    🏠 Página Inicial
     ![HomePage](./public/img/home.png)
-   📝 Listagem de Postagens
+
+   📝 Lista de Postagens
     ![postagens](./public/img/postagens.png)
 
+     Painel ADM Dashboard 
+    ![Dashboard](./public/img/dashboard.png)
+    
 # 📄 Licença
 Este projeto está licenciado sob a MIT License.
 

@@ -2,12 +2,44 @@ import { Router } from "express";
 import Categorias from "../models/Categoria.js";
 import Post from "../models/posts.js";
 import eAdmin  from "../helpers/eAdmin.js"
+import User from "../models/usuario.js"
 
 const routes = new Router();
 const categoria = Categorias ;
-routes.get('/', eAdmin.eAdmin, (req,res) => {
-    res.render("admin/index")
-})
+
+
+routes.get('/', eAdmin.eAdmin, async (req,res) => {
+    try {
+
+        const hoje = new Date();
+            hoje.setHours(0, 0, 0, 0);
+
+        const seteDiasAtras = new Date();
+            seteDiasAtras.setDate(seteDiasAtras.getDate() - 7);
+
+        const umMesAtras = new Date();
+            umMesAtras.setMonth(umMesAtras.getMonth() - 1);
+
+        
+        const categoriasHoje = await Categorias.countDocuments({ date: { $gte: hoje } });
+        const postsSemana = await Post.countDocuments({ date: { $gte: seteDiasAtras } });
+        const usuariosMes = await User.countDocuments({ date: { $gte: umMesAtras } });
+
+        const totalCategorias = await Categorias.countDocuments();
+        const totalPostagens = await Post.countDocuments();
+        const totalUsuarios = await User.countDocuments();
+
+        
+
+        res.render("admin/dashboard", { usuario: req.session.user, totalCategorias, totalPostagens, totalUsuarios, categoriasHoje, postsSemana, usuariosMes });
+        
+    } 
+    catch(err) {
+        console.error(err);
+        req.flash("error_msg", "Erro ao carregar dados do dashboard");
+        res.redirect("/admin/categorias");
+    }
+});
 
 routes.get('/categorias', eAdmin.eAdmin, (req, res) => {
     categoria.find().then((categoria) => {
@@ -21,20 +53,23 @@ routes.get('/categorias', eAdmin.eAdmin, (req, res) => {
 routes.get('/categorias/add', eAdmin.eAdmin, (req, res) => {
     res.render("admin/addcategorias")
 })
+function validaCategorias(req, res, next){
+    let erros = []
 
-routes.post('/categorias/nova', eAdmin.eAdmin, (req,res) => {
-    var erros = [];
-
-    if(!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {
-        erros.push({texto: "Nome invalido"})
+    if(!req.body.nome || req.body.nome.trim() === '') {
+        erros.push({texto: "nome invalido"})
     }
-    if(!req.body.slug || typeof req.body.slug == undefined || req.body.slug == null) {
+    if(!req.body.slug || req.body.slug.trim() === '') {
         erros.push({texto: "Slug invalido"})
     }
     if(erros.length > 0) {
         res.render("admin/addcategorias", {erros: erros})
     }
-    else {
+    else{
+        next();
+    }
+}
+routes.post('/categorias/nova', validaCategorias, eAdmin.eAdmin, (req,res) => {
     const novaCategoria = {
         nome: req.body.nome,
         slug: req.body.slug
@@ -46,7 +81,7 @@ routes.post('/categorias/nova', eAdmin.eAdmin, (req,res) => {
         req.flash("error_msg", "Houve um erro ao salvar a categoria")
         res.redirect("/admin")
     })
-    }
+    
 
 })
 routes.get('/categorias/edit/:id', eAdmin.eAdmin, (req, res) => {
@@ -57,19 +92,23 @@ routes.get('/categorias/edit/:id', eAdmin.eAdmin, (req, res) => {
         res.redirect("/admin/categorias")
     })
 })
-routes.post('/categorias/edit', eAdmin.eAdmin, (req, res) => {
-    let error = []
-    
-    if(!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {
+function validaEdit(req, res, next) {
+    let error = [];
+
+    if(!req.body.nome || req.body.nome.trim() === '') {
         error.push({texto: "Nome invalido"})
     }
-    if(!req.body.slug || typeof req.body.slug == undefined || req.body.slug == null) {
+    if(!req.body.slug || req.body.slug.trim() === '') {
         error.push({texto: "Slug invalido"})
     }
     if(error.length > 0) {
         res.render("admin/editcategorias", {error: error})
     }
     else {
+        next();
+    }
+}
+routes.post('/categorias/edit', validaEdit, eAdmin.eAdmin, (req, res) => {
     categoria.findOneAndUpdate({_id: req.body.id}).then((categoria) => {
         categoria.nome = req.body.nome
         categoria.slug = req.body.slug
@@ -81,11 +120,11 @@ routes.post('/categorias/edit', eAdmin.eAdmin, (req, res) => {
             req.flash("error_msg", "Houve um erro interno ao salvar a edição");
             res.redirect("/admin/categorias")
         })
-    }).catch((err) => {
+    })
+    .catch((err) => {
         req.flash("error_msg", "Houve um erro ao editar a categoria");
         res.redirect("/admin/categorias");
-    })
-} 
+    }) 
 })
 routes.post('/categorias/deletar', eAdmin.eAdmin, (req, res) => {
     categoria.deleteOne({_id: req.body.id}).then(() => {
